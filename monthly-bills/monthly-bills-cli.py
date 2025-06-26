@@ -84,7 +84,7 @@ def main():
     totals = {person: sum(bills.values()) for person, bills in contributions.items()}
 
     report = []
-    current_month = datetime.datetime.now().strftime("%B")
+    current_month = datetime.datetime.now().strftime("%B_%Y")
     report.append(f"BILL SPLITTING REPORT - {current_month}")
     report.append("=" * 50)
 
@@ -93,17 +93,20 @@ def main():
         report.append(f"{bill_name}: ${amount:.2f}")
 
     report.append("\nCONTRIBUTIONS PER PERSON:")
+    report.append("-" * 50)
     for person, person_bills in contributions.items():
         report.append(f"\n{person}:")
         if person_bills:
             for bill_name, amount in person_bills.items():
-                report.append(f"  {bill_name}: ${amount:.2f}")
-            report.append(f"TOTAL: ${totals[person]:.2f}")
+                report.append(f"  |-- {bill_name}: ${amount:.2f}")
+            report.append("-" * 25)
+            report.append(f"  TOTAL: ${totals[person]:.2f}")
+            report.append("-" * 25)
         else:
             report.append("No contributions")
 
     desktop_path = get_desktop_path()
-    file_path = os.path.join(desktop_path, f"bill_{current_month}.txt")
+    file_path = os.path.join(f"{desktop_path}/Docs", f"bills_report_{current_month}.txt")
 
     with open(file_path, 'w') as f:
         f.write('\n'.join(report))
