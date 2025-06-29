@@ -74,8 +74,6 @@ def process_image(image_path):
         image = contrast_enhancer.enhance(2)
         brightness_enhancer = ImageEnhance.Brightness(image)
         image = brightness_enhancer.enhance(4)
-        sharpness_enhancer = ImageEnhance.Sharpness(image)
-        image = sharpness_enhancer.enhance(4.0)
 
         # Apply slight sharpening to make text clearer
         image = image.filter(ImageFilter.SHARPEN)
